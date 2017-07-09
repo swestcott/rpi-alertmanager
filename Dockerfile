@@ -3,8 +3,8 @@ MAINTAINER Simon Westcott <swestcott@gmail.com>
 
 ENV ALERTMANAGER_VERSION 0.7.1
 
-#ADD https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
-COPY alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
+ADD https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
+#COPY alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
 
 RUN cd /tmp \
 	&& tar -zxvf /tmp/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz \
