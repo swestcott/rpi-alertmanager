@@ -8,7 +8,6 @@ services:
 script:
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 - docker build -t swestcott/rpi-alertmanager:build .
-- docker run swestcott/rpi-alertmanager:build -version
 - VERSION=$(docker inspect --format '{{ range .Config.Env }}{{ println . }}{{ end }}' swestcott/rpi-alertmanager:build | grep ALERTMANAGER_VERSION | sed 's/^.*=//')
 - >
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
