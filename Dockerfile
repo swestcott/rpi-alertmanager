@@ -1,7 +1,7 @@
 FROM hypriot/rpi-alpine:3.5
 MAINTAINER Simon Westcott <swestcott@gmail.com>
 
-ENV ALERTMANAGER_VERSION 0.7.1
+ENV ALERTMANAGER_VERSION 0.8.0
 
 ADD https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
 #COPY alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
