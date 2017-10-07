@@ -1,5 +1,6 @@
 FROM hypriot/rpi-alpine:3.6
-MAINTAINER Simon Westcott <swestcott@gmail.com>
+
+LABEL maintainer="swestcott@gmail.com"
 
 ENV ALERTMANAGER_VERSION 0.9.1
 
