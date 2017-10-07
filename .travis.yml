@@ -1,15 +1,13 @@
 sudo: required
-
 language: bash
-
 services:
 - docker
-
 script:
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 - docker build -t swestcott/rpi-alertmanager:build .
-- VERSION=$(docker inspect --format '{{ range .Config.Env }}{{ println . }}{{ end }}' swestcott/rpi-alertmanager:build | grep ALERTMANAGER_VERSION | sed 's/^.*=//')
-- >
+- VERSION=$(docker inspect --format '{{ range .Config.Env }}{{ println . }}{{ end
+  }}' swestcott/rpi-alertmanager:build | grep ALERTMANAGER_VERSION | sed 's/^.*=//')
+- |
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
     docker tag swestcott/rpi-alertmanager:build swestcott/rpi-alertmanager:$VERSION
@@ -17,3 +15,6 @@ script:
     docker push swestcott/rpi-alertmanager:$VERSION
     docker push swestcott/rpi-alertmanager:latest
   fi
+notifications:
+  slack:
+    secure: te0QAH4mEw/YJR4mTfjXqnqskCaDqhBnRvuGrNbbI54P1rZ36O+0WlMGbV2cRiEOhbePYhNx3yKVBDobax9ju3DazE40mXjCTR/lS7+hEFhsXQHH+ETeviQqSgCvw/TvXA0oTOplIWMnG0t6H5FbkTYbTWxb3bIdKoEEBLaNCFhU6SPufw8PlXOzg5bfF8qgqpoxqI8yukKW6Q6ZwAZh6BTPCUE83okdk0xbHiMNltvL359Ia8kEIktREihZRTUNjBAyfD7EwW6Kl2thbrZnEwfZYXNTZmujOANx3gLEl6/yOTLhBXdbj2hw7YcufAL300E9F4tLSsNHOrOiQRInpUD8HTcKfMh1PdD/pAAvXLGvYXKhcaxLs55GPqCEPxgUW+GHAPjy/SlKgErp8QzjIxOWxlcgwnREa5pLPY3UEvEIjo63SzMhwJBtuH77FDsnXMTc5j+xZ+6Q5M3ZvMlkjdAMQH4pzastEcq72/yIly0I1iTL29ILNcayg37elucXNAUm29OFFQxMBL4rHuonZUZlwTtPb43BJUoRVbPJ099E66nDuy0dQrsKjRXu1LlF5U5fEHtjqbyORFgOFT1S0sokWGQv7+loTx++CC4oJdl5tqbYdHxnGcJ/37VsQpo7+GG7yqU7+ty06CbI+oncCE9uvADHS8pYbIJW4INOxe4=
