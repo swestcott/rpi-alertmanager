@@ -4,6 +4,9 @@ LABEL maintainer="swestcott@gmail.com"
 
 ENV ALERTMANAGER_VERSION 0.11.0
 
+RUN sed -i -e 's/http/https/g' /etc/apk/repositories
+RUN apk --no-cache upgrade
+
 ADD https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
 #COPY alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
 
