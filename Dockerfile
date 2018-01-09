@@ -4,8 +4,9 @@ LABEL maintainer="swestcott@gmail.com"
 
 ENV ALERTMANAGER_VERSION 0.12.0
 
-RUN sed -i -e 's/http/https/g' /etc/apk/repositories
-RUN apk --no-cache upgrade
+RUN sed -i -e 's/http/https/g' /etc/apk/repositories \
+	&& apk upgrade --no-cache \
+	&& apk add --no-cache ca-certificates
 
 ADD https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
 #COPY alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
@@ -25,6 +26,8 @@ VOLUME [ "/alertmanager" ]
 WORKDIR /alertmanager
 
 ENTRYPOINT [ "/bin/alertmanager" ]
+
+USER nobody
 
 CMD [ "-config.file=/etc/alertmanager/config.yml", \
     "-storage.path=/alertmanager" ]
