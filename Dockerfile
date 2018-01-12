@@ -2,7 +2,7 @@ FROM hypriot/rpi-alpine:3.6
 
 LABEL maintainer="swestcott@gmail.com"
 
-ENV ALERTMANAGER_VERSION 0.12.0
+ENV ALERTMANAGER_VERSION 0.13.0
 
 RUN sed -i -e 's/http/https/g' /etc/apk/repositories \
 	&& apk upgrade --no-cache \
