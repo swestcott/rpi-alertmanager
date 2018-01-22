@@ -27,7 +27,7 @@ WORKDIR /alertmanager
 
 ENTRYPOINT [ "/bin/alertmanager" ]
 
-USER nobody
+USER nobody:nogroup
 
 CMD [ "-config.file=/etc/alertmanager/config.yml", \
     "-storage.path=/alertmanager" ]
