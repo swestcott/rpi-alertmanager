@@ -19,6 +19,8 @@ RUN cd /tmp \
 	&& rm /tmp/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz \
 	&& rm -r /tmp/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7/
 
+ADD https://raw.githubusercontent.com/prometheus/alertmanager/master/template/default.tmpl /etc/alertmanager/template/default.tmpl
+
 EXPOSE 9093
 
 VOLUME [ "/alertmanager" ]
