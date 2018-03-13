@@ -1,12 +1,14 @@
-FROM hypriot/rpi-alpine:3.6
+FROM resin/armhf-alpine:3.7
 
 LABEL maintainer="swestcott@gmail.com"
 
 ENV ALERTMANAGER_VERSION 0.14.0
 
-RUN sed -i -e 's/http/https/g' /etc/apk/repositories \
-	&& apk upgrade --no-cache \
-	&& apk add --no-cache ca-certificates
+RUN ["cross-build-start"]
+
+RUN apk --update upgrade \
+    && apk add ca-certificates \
+    && rm -r /var/cache/apk/*
 
 ADD https://github.com/prometheus/alertmanager/releases/download/v${ALERTMANAGER_VERSION}/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz /tmp/
 ADD https://raw.githubusercontent.com/prometheus/alertmanager/master/template/default.tmpl /tmp/default.tmpl
@@ -21,6 +23,8 @@ RUN cd /tmp \
 	&& chmod a+r /etc/alertmanager/template/default.tmpl \
 	&& rm /tmp/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7.tar.gz \
 	&& rm -r /tmp/alertmanager-${ALERTMANAGER_VERSION}.linux-armv7/
+
+RUN ["cross-build-end"]
 
 EXPOSE 9093
 
