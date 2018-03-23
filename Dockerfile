@@ -2,7 +2,7 @@ FROM resin/armhf-alpine:3.7
 
 LABEL maintainer="swestcott@gmail.com"
 
-ENV ALERTMANAGER_VERSION 0.14.0
+ENV ALERTMANAGER_VERSION 0.15.0-rc.0
 
 RUN ["cross-build-start"]
 
